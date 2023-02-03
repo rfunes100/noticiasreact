@@ -17,27 +17,50 @@ const NoticiasProvider = ({children }) => {
 
     useEffect(() => {
       const consultarapi = async () => {
+        
         const url = `https://newsapi.org/v2/top-headlines?country=us&category=${categoria}&apiKey=${import.meta.env.VITE_API_KEY}`
-
         const {data } = await axios(url)
         setnoticias(data.articles)
         settototalnoticia(data.totalResults)
         setpagina(1)
+
+        
+/*
+        fetch( `https://newsapi.org/v2/top-headlines?country=us&category=${categoria}&apiKey=${import.meta.env.VITE_API_KEY}`)
+        .then((response) => {
+          return response.json()
+        })
+        .then((data) => {
+            setnoticias(data.articles)
+        //    settototalnoticia(data.totalResults)
+            setpagina(1)
+        })*/
 
       }
       consultarapi()
     
       return () => {
         const consultarapi = async () => {
-            const url = `https://newsapi.org/v2/top-headlines?country=us&category=${categoria}&apiKey=${import.meta.env.VITE_API_KEY}`
-    
-            const {data } = await axios(url)
 
-            console.log('data',data)
             
+            const url = `https://newsapi.org/v2/top-headlines?country=us&category=${categoria}&apiKey=${import.meta.env.VITE_API_KEY}`
+            const {data } = await axios(url)
+            console.log('data',data)     
             setnoticias(data.articles)
             settototalnoticia(data.totalResults)
             setpagina(1)
+
+
+            /*
+            fetch(  `https://newsapi.org/v2/top-headlines?country=us&category=${categoria}&apiKey=${import.meta.env.VITE_API_KEY}` )
+            .then((response) => {
+              return response.json()
+            })
+            .then((data) => {
+                setnoticias(data.articles)
+           //     settototalnoticia(data.totalResults)
+                setpagina(1)
+            })*/
     
           }
           consultarapi()
@@ -45,27 +68,54 @@ const NoticiasProvider = ({children }) => {
     }, [categoria ])
     
 
+
     useEffect(() => {
         const consultarapi = async () => {
-          const url = `https://newsapi.org/v2/top-headlines?country=us&page=${pagina}&category=${categoria}&apiKey=${import.meta.env.VITE_API_KEY}`
-  
+       
+            /*
+            const url = `https://newsapi.org/v2/top-headlines?country=us&page=${pagina}&category=${categoria}&apiKey=${import.meta.env.VITE_API_KEY}`
+
           const {data } = await axios(url)
           setnoticias(data.articles)
           settototalnoticia(data.totalResults)
+          */
+
+
+          fetch(`https://newsapi.org/v2/top-headlines?country=us&page=${pagina}&category=${categoria}&apiKey=${import.meta.env.VITE_API_KEY}`)
+      .then((response) => {
+        return response.json()
+      })
+      .then((data) => {
+        setnoticias(data.articles)
+      //  settototalnoticia(data.totalResults)
+      })
+
+       
   
         }
         consultarapi()
       
         return () => {
           const consultarapi = async () => {
-              const url = `https://newsapi.org/v2/top-headlines?country=us&page=${pagina}&category=${categoria}&apiKey=${import.meta.env.VITE_API_KEY}`
-      
+
+            /*
+             const url = `https://newsapi.org/v2/top-headlines?country=us&page=${pagina}&category=${categoria}&apiKey=${import.meta.env.VITE_API_KEY}`
               const {data } = await axios(url)
-  
-              console.log('data',data)
-              
+              console.log('data',data)  
               setnoticias(data.articles)
               settototalnoticia(data.totalResults)
+*/
+
+              
+
+              fetch(`https://newsapi.org/v2/top-headlines?country=us&page=${pagina}&category=${categoria}&apiKey=${import.meta.env.VITE_API_KEY}`)
+              .then((response) => {
+                return response.json()
+              })
+              .then((data) => {
+                setnoticias(data.articles)
+               // settototalnoticia(data.totalResults)
+              })
       
             }
             consultarapi()
